@@ -34,7 +34,12 @@ end
 school = School.new
 doc = school.query(12,"数学")
 
-puts doc.elements['school/code'].text
+doc.elements.each{
+ |element|
+ puts element['school/code'].text
+}
+
+#puts doc.elements['school/code'].text
 
 
 
