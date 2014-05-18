@@ -28,34 +28,40 @@ class School
    doc = REXML::Document.new(result) 
    return doc
  end
+ 
+ def schoolname
+  doc = self.query(13,"電子")
+  schoolname = []
+
+  doc.elements['results'].each{
+   |element|
+   schoolname << element.elements['name']
+  }
+
+  newschoolname = schoolname.compact
+
+  schoolname = []
+
+  newschoolname.each{
+   |school|
+   school = school.to_s
+   schoolname << school.gsub(/<name>(.+)<\/name>/,'\1')
+  }
+   
+  return schoolname
+ end
 
 end
 
 school = School.new
-
-doc = school.query(14,"情報")
-
-schoolname = []
-
-doc.elements['results'].each{
-   |element|
-   schoolname << element.elements['name']
-}
-
-newschoolname = schoolname.compact
-
-schoolname = []
-
-newschoolname.each{
- |school|
- school = school.to_s
- schoolname << school.gsub(/<name>(.+)<\/name>/,'\1')
-}
+schoolname = school.schoolname
 
 schoolname.each{
   |school|
   puts school
 }
+
+
 
 
 
