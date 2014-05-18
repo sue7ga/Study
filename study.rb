@@ -32,14 +32,33 @@ class School
 end
 
 school = School.new
-doc = school.query(12,"数学")
 
-doc.elements.each{
- |element|
- puts element['school/code'].text
+doc = school.query(14,"情報")
+
+schoolname = []
+
+doc.elements['results'].each{
+   |element|
+   schoolname << element.elements['name']
 }
 
-#puts doc.elements['school/code'].text
+newschoolname = schoolname.compact
+
+schoolname = []
+
+newschoolname.each{
+ |school|
+ school = school.to_s
+ schoolname << school.gsub(/<name>(.+)<\/name>/,'\1')
+}
+
+schoolname.each{
+  |school|
+  puts school
+}
+
+
+
 
 
 
