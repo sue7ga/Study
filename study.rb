@@ -3,8 +3,7 @@ require 'rexml/document'
 require 'open-uri'
 require 'nkf'
  
-class School
- 
+class School 
  @@baseurl = 'http://webservice.recruit.co.jp/shingaku/school/v1/?key='
 
  def initialize(apikey = "ad425e84441a387a")
@@ -32,10 +31,13 @@ class School
 
 end
 
-
 school = School.new
-
 doc = school.query(12,"数学")
+
+doc.elements.each{
+ |element|
+ puts element['department']
+}
 
 
 
